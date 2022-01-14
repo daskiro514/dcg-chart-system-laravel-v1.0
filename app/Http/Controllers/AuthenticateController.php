@@ -29,6 +29,7 @@ class AuthenticateController extends Controller
   {
     // $request->authenticate();
     dd('OK');
+    
 
     // $request->session()->regenerate();
 
