@@ -28,6 +28,7 @@ class AuthenticateController extends Controller
   public function store(LoginRequest $request)
   {
     // $request->authenticate();
+    dd('OK');
 
     // $request->session()->regenerate();
 
