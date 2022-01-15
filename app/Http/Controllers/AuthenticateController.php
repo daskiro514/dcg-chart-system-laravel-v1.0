@@ -59,13 +59,25 @@ class AuthenticateController extends Controller
         ])->get('https://dcgonboarding.com/api/auth');
 
         $user = $response1->json();
-        $product = $user['purchasedProductID'];
-        $price = $product['price'];
+        session(['user' => $user]);
+        session(['avatar' => $user['avatar']]);
+        $type = $user['type'];
 
-        if ($price == 49700) {
+        if ($type == 'admin' || $type == 'hidden admin') {
             session(['isAuthenticated' => true]);
-            session(['product' => $product]);
-            session(['user' => $user]);
+            session(['type' => 'admin']);
+        } elseif ($type == 'customer') {
+            $product = $user['purchasedProductID'];
+            $price = $product['price'];
+
+            if ($price == 49700) {
+                session(['isAuthenticated' => true]);
+                session(['product' => $product]);
+                session(['type' => 'customer']);
+            }
+        } else {
+            session(['msg' => "Partners can't see this website dashboard. Sorry.."]);
+            return redirect('/login');
         }
 
         return redirect('/dashboard');
