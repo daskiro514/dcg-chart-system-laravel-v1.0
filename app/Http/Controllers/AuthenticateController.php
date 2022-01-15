@@ -20,7 +20,7 @@ class AuthenticateController extends Controller
         $isAuthenticated = session('isAuthenticated');
 
         if ($isAuthenticated) {
-          return redirect('/dashboard');
+            return redirect('/dashboard');
         }
 
         return view('auth.login');
@@ -43,12 +43,12 @@ class AuthenticateController extends Controller
         ]);
 
         $errors = $response->json('errors');
-        $msg = $errors[0]['msg'];
 
-        if ($msg !== null) {
-          session(['msg' => $msg]);
-          return redirect('/login');
-        } 
+        if ($errors !== null) {
+            $msg = $errors[0]['msg'];
+            session(['msg' => $msg]);
+            return redirect('/login');
+        }
 
         $token = $response->json('token');
 
