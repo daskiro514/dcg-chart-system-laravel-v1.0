@@ -42,6 +42,14 @@ class AuthenticateController extends Controller
             'password' => $password,
         ]);
 
+        $errors = $response->json('errors');
+        $msg = $errors[0]['msg'];
+
+        if ($msg !== null) {
+          session(['msg' => $msg]);
+          return redirect('/login');
+        } 
+
         $token = $response->json('token');
 
         session(['token' => $token]);

@@ -1,8 +1,13 @@
 @extends('initialLayout')
 
 @section('content')
+    <?php $msg = session('msg'); ?>
     <div class="flex login-form">
         <div class="col-lg-4 col-md-6 col-sm-6 col-8 mx-auto">
+            @if ($msg !== null)
+                <p class="text-center text-danger">{{ $msg }}</p>
+            @endif
+
             <div class="card-body">
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
