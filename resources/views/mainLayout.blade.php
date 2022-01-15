@@ -140,7 +140,7 @@
             <div class="dropdown-menu">
               <a class="dropdown-item" href="{{route('mng-signals')}}">New Signal</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{url('/')}}">Logout</a>
+              <a class="dropdown-item" href="{{url('/logout')}}">Logout</a>
               <!-- <a class="dropdown-item" href="#">Another action</a>
               <a class="dropdown-item" href="#">Something else here</a>
               <a class="dropdown-item" href="#">Separated link</a> -->

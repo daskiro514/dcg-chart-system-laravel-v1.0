@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Middleware\CheckStatus;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +17,25 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::get('/', 'MainController@index')->middleware(['auth'])->name('Mainboard');
-Route::get('/dashboard', 'MainController@index');
-Route::get('/news', 'MainController@getRSSFeedContent');
-Route::get('/market', 'MarketController@index');
-Route::post('/market/editsymbol', 'MarketController@editsymbol');
-Route::get('/signalsmng', 'SignalsController@index')->name('mng-signals');
-Route::post('/newsignal', 'SignalsController@createSignal')->name('new-signal');
-Route::get('/post','PostController@index');
-Route::match(array('GET', 'POST', 'DELETE'), '/storage/1.1/charts', 'MainController@storage');
+// Route::get('/dashboard', 'MainController@index');
+// Route::get('/news', 'MainController@getRSSFeedContent');
+// Route::get('/market', 'MarketController@index');
+// Route::post('/market/editsymbol', 'MarketController@editsymbol');
+// Route::get('/signalsmng', 'SignalsController@index')->name('mng-signals');
+// Route::post('/newsignal', 'SignalsController@createSignal')->name('new-signal');
+// Route::get('/post','PostController@index');
+// Route::match(array('GET', 'POST', 'DELETE'), '/storage/1.1/charts', 'MainController@storage');
+
+Route::middleware([CheckStatus::class])->group(function(){
+  Route::get('/dashboard', 'MainController@index');
+  Route::get('/news', 'MainController@getRSSFeedContent');
+  Route::get('/market', 'MarketController@index');
+  Route::post('/market/editsymbol', 'MarketController@editsymbol');
+  Route::get('/signalsmng', 'SignalsController@index')->name('mng-signals');
+  Route::post('/newsignal', 'SignalsController@createSignal')->name('new-signal');
+  Route::get('/post','PostController@index');
+  Route::match(array('GET', 'POST', 'DELETE'), '/storage/1.1/charts', 'MainController@storage');
+
+});
 
 require __DIR__.'/auth.php';
